@@ -42,8 +42,7 @@ animation = {
 -- "nome"
 icons = {
     ["base"] = "assets/base.png",
-    "home",
-    "like"
+    "home"
 }
 
 -- Lista de todos os markers que aparecerão no mundo.
@@ -58,16 +57,10 @@ icons = {
 --     baseColor = tocolor(255, 255, 255)       -- Cor da base
 -- }
 markers = {
-    {
-        icon = "home",
-        position = { x = 0, y = 0, z = 3 },
-        dimension = 0,
-        interior = 0
-    },
-    {
-        icon = "like",
-        position = { x = 5, y = 0, z = 3 },
-        dimension = 0,
-        interior = 0
-    }
+    -- {
+    --     icon = "home",
+    --     position = { x = 0, y = 0, z = 3 },
+    --     dimension = 0,
+    --     interior = 0
+    -- }
 }

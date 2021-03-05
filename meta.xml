@@ -9,6 +9,5 @@
     <min_mta_version client="1.5.8" />
 
     <file src="assets/icons/home.png" />
-    <file src="assets/icons/like.png" />
     <file src="assets/base.png" />
 </meta>
