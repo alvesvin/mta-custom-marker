@@ -2,7 +2,7 @@
 Simple custom marker for Multi Theft Auto
 
 ## Download
-You can download the latest release [here](https://github.com/alvesvin/mta-custom-marker).
+You can download the latest release [here](https://github.com/alvesvin/mta-custom-marker/releases).
 
 ## Configuration
 All configs are placed inside the `config-g.lua` file. There you can change things like colors for markers, sizes and animation.
