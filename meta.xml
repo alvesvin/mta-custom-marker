@@ -1,12 +1,12 @@
 <meta>
-    <info author="https://tidis.net/k948wj2Y" version="0.1.0" />
+    <info author="https://tidis.net/k948wj2Y" version="0.1.4" />
 
     <script src="config-g.lua" type="shared" />
     <script src="util-g.lua" type="shared" />
     <script src="marker-c.lua" type="client" />
     <script src="marker-s.lua" type="server" />
 
-    <min_mta_version client="1.5.8" />
+    <min_mta_version server="1.5.6-9.18728" client="1.5.6-9.18728" />
 
     <file src="assets/icons/home.png" />
     <file src="assets/base.png" />
