@@ -53,8 +53,8 @@ icons = {
 --     position = { x = 0, y = 0, z = 3 },      -- Coordenadas para a posição do marker
 --     dimension = 0,                           -- Dimensão do marker
 --     interior = 0                             -- Interior do marker,
---     iconColor = tocolor(255, 255, 255),      -- Cor do ícone
---     baseColor = tocolor(255, 255, 255)       -- Cor da base
+--     iconColor = tocolor(255, 255, 255),      -- Cor do ícone (opcional)
+--     baseColor = tocolor(255, 255, 255)       -- Cor da base (opcional)
 -- }
 markers = {
     -- {
