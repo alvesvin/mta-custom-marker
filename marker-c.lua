@@ -70,7 +70,6 @@ local function calculateVisibleMarkers()
             visibleMarkers = getVisibleMarkers(localPlayer, config.markers, config.viewDistance)
             checked = tick
         end
-
     end
 end
 

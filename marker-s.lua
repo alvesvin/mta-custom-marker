@@ -40,6 +40,6 @@ end
 addEvent("onCustomMarkerHit")
 addEvent("onCustomMarkerLeave")
 
-addEventHandler("onResourceStart", root, setupMarkersCollisions)
+addEventHandler("onResourceStart", resourceRoot, setupMarkersCollisions)
 addEventHandler("onColShapeHit", root, onColshapeInteract)
 addEventHandler("onColShapeLeave", root, onColshapeInteract)
