@@ -3,7 +3,7 @@ local visibleMarkers = {}
 local config = getConfig()
 local textures = {}
 
-local getAnimationOffset = createAnimation(
+local getAnimatedValue = createAnimation(
     config.animation.duration,
     config.animation.easing,
     config.animation.pulseMultiplier
@@ -24,6 +24,8 @@ local function preloadTextures()
 end
 
 local function drawMarkers()
+    local animatedValue = getAnimatedValue()
+    
     table.foreach(visibleMarkers, function(_, marker)
         local mx, my, mz = 
             marker.position.x,
@@ -34,19 +36,15 @@ local function drawMarkers()
             mx, my, mz
         )
 
-        -- Icone
-        
         dxDrawMaterialLine3D(
-            mx, my, mz + config.sizes.icon + getAnimationOffset(),
-            mx, my, mz + getAnimationOffset(),
+            mx, my, mz + config.sizes.icon + animatedValue,
+            mx, my, mz + animatedValue,
             textures[marker.icon],
             config.sizes.icon,
             marker.iconColor or config.colors.icon
         )
 
-        -- Base
-
-        local baseSize = config.sizes.base + getAnimationOffset()
+        local baseSize = config.sizes.base + animatedValue
 
         dxDrawMaterialLine3D(
             mx, my - baseSize / 2, groundPosition,
@@ -74,7 +72,6 @@ local function calculateVisibleMarkers()
         end
 
     end
-
 end
 
 addEvent("onCustomMarkerHit", true)
