@@ -34,17 +34,6 @@ function strf(str, ...)
     return string.format(str, ...)
 end
 
-function table.each(tbl, fun)
-    assert(type(tbl) == "table", strf("Bad argument 1 to 'table.each' (table expected got %s)", type(tbl)))
-    assert(type(fun) == "function", strf("Bad argument 2 to 'table.each' (function expected got %s)", type(fun)))
-
-    for key, value in pairs(tbl) do
-        fun(value, key)
-    end
-
-    return true
-end
-
 function table.filter(tbl, fun)
     assert(type(tbl) == "table", strf("Bad argument 1 to 'table.filter' (table expected got %s)", type(tbl)))
     assert(type(fun) == "function", strf("Bad argument 2 to 'table.filter' (function expected got %s)", type(fun)))
@@ -52,7 +41,7 @@ function table.filter(tbl, fun)
     local result = {}
 
     for key, value in pairs(tbl) do
-        if (fun(value, key)) then
+        if fun(value, key) then
             result[key] = value
         end
     end
@@ -92,7 +81,7 @@ function getVisibleMarkers(player, all_markers, maxViewDistance)
         local sameint = pinterior == marker.interior
 
         return
-            distance < maxViewDistance and
+            distance <= maxViewDistance and
             samedim and
             sameint
     end)
@@ -102,7 +91,8 @@ function createAnimation(duration, easing, multiplier)
     assert(type(duration) == "number", strf("Bad argument 1 to 'createAnimation' (number expected got %s)", type(duration)))
     assert(table.includes(EASING_FUNCTIONS, easing), "Bad argument 2 to 'createAnimation' (valid animation expected)")
 
-    local state = 0
+    local from = 0
+    local to = multiplier
     local startTime = getTickCount()
     
     return function()
@@ -110,17 +100,20 @@ function createAnimation(duration, easing, multiplier)
         local passed = tick - startTime
 
         local value = interpolateBetween(
-            state > 0 and 0 or 1, 0, 0,
-            state > 0 and 1 or 0, 0, 0,
+            from, 0, 0,
+            to, 0, 0,
             passed / duration,
             easing
         )
 
         if passed > duration then
-            state = state > 0 and 0 or 1
+            local _to = to
+            to = from
+            from = _to
+
             startTime = tick
         end
 
-        return value * multiplier
+        return value
     end
 end

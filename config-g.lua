@@ -57,10 +57,10 @@ icons = {
 --     baseColor = tocolor(255, 255, 255)       -- Cor da base (opcional)
 -- }
 markers = {
-    -- {
-    --     icon = "home",
-    --     position = { x = 0, y = 0, z = 3 },
-    --     dimension = 0,
-    --     interior = 0
-    -- }
+    {
+        icon = "home",
+        position = { x = 0, y = 0, z = 3 },
+        dimension = 0,
+        interior = 0
+    }
 }

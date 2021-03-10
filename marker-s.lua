@@ -2,7 +2,7 @@ local config = getConfig()
 local colliders = {}
 
 local function setupMarkersCollisions()
-    table.each(config.markers, function(marker, index)
+    table.foreach(config.markers, function(index, marker)
         local mx, my =
             marker.position.x,
             marker.position.y
@@ -20,9 +20,11 @@ local function onColshapeInteract(elm, samedim)
     local index = colliders[source]
     local marker = type(index) == "number" and config.markers[index]
     local _, __, ez = getElementPosition(elm)
+    local sameint = marker and getElementInterior(elm) == marker.interior
 
     if  not marker or
         not samedim or
+        not sameint or
         math.abs(ez - marker.position.z) > 1
     then
         return
@@ -31,12 +33,12 @@ local function onColshapeInteract(elm, samedim)
     local enter = eventName == "onColShapeHit"
     local event = enter and "onCustomMarkerHit" or "onCustomMarkerLeave"
 
-    triggerEvent(event, elm, marker)
-    triggerClientEvent(elm, event, elm, marker)
+    triggerEvent(event, elm, marker, source)
+    triggerClientEvent(elm, event, elm, marker, source)
 end
 
-addEvent("onCustomerMarkerHit")
-addEvent("onCustomerMarkerLeave")
+addEvent("onCustomMarkerHit")
+addEvent("onCustomMarkerLeave")
 
 addEventHandler("onResourceStart", root, setupMarkersCollisions)
 addEventHandler("onColShapeHit", root, onColshapeInteract)
