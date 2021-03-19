@@ -1,4 +1,5 @@
 local visibleMarkers = {}
+local all_markers = getMarkersDescriptors()
 
 local config = getConfig()
 local textures = {}
@@ -21,6 +22,26 @@ local function preloadTextures()
 
         textures[name] = dxCreateTexture(path, "dxt5", false, "clamp")
     end)
+end
+
+local function loadConfigMarkers()
+    table.foreach(config.markers, function(_, descriptor)
+        createCustomMarker(
+            descriptor.position.x,
+            descriptor.position.y,
+            descriptor.position.z,
+            descriptor.icon,
+            descriptor.dimension,
+            descriptor.interior,
+            descriptor.iconColor,
+            descriptor.baseColor
+        )
+    end)
+end
+
+local function onResourceStart()
+    preloadTextures()
+    loadConfigMarkers()
 end
 
 local function drawMarkers()
@@ -67,15 +88,32 @@ local function calculateVisibleMarkers()
         local passed = tick - checked
 
         if passed >= period then
-            visibleMarkers = getVisibleMarkers(localPlayer, config.markers, config.viewDistance)
+            visibleMarkers = getVisibleMarkers(localPlayer, all_markers, config.viewDistance)
             checked = tick
         end
     end
 end
 
-addEvent("onCustomMarkerHit", true)
-addEvent("onCustomMarkerLeave", true)
+function createCustomMarker(
+    x, y, z,
+    icon,
+    dimension,
+    interior,
+    iconColor,
+    baseColor
+)
+    triggerServerEvent(
+        "custommarker:doCustomMarkerCreate",
+        resourceRoot,
+        x, y, z,
+        icon,
+        dimension,
+        interior,
+        iconColor,
+        baseColor
+    )
+end
 
-addEventHandler("onClientResourceStart", resourceRoot, preloadTextures)
+addEventHandler("onClientResourceStart", resourceRoot, onResourceStart)
 addEventHandler("onClientPreRender", root, calculateVisibleMarkers())
 addEventHandler("onClientRender", root, drawMarkers)

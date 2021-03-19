@@ -117,3 +117,13 @@ function createAnimation(duration, easing, multiplier)
         return value
     end
 end
+
+function doesIconExists(icons, icon)
+    for key, value in pairs(icons) do
+        if key == icon or value == icon then
+            return true
+        end
+    end
+
+    return false
+end
